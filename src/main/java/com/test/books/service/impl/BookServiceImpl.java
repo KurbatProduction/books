@@ -3,6 +3,8 @@ package com.test.books.service.impl;
 import com.test.books.dto.BookDataDto;
 import com.test.books.entity.Author;
 import com.test.books.entity.Book;
+import com.test.books.enums.BookExceptionEnum;
+import com.test.books.exception.BookException;
 import com.test.books.mapper.BookMapper;
 import com.test.books.repository.BookRepository;
 import com.test.books.service.AuthorService;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,7 +47,7 @@ public class BookServiceImpl implements BookService {
     public BookDataDto.Response getBook(UUID id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isEmpty()) {
-            throw new NoSuchElementException("Book wasn't found");
+            throw new BookException(BookExceptionEnum.NOT_FOUND_BOOK);
         }
         return bookMapper.toBookDataDtoResponse(bookOptional.get());
     }
@@ -56,7 +57,7 @@ public class BookServiceImpl implements BookService {
     public void updateBook(UUID id, BookDataDto.Request dto) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isEmpty()) {
-            throw new NoSuchElementException("Book wasn't found");
+            throw new BookException(BookExceptionEnum.NOT_FOUND_BOOK);
         }
         Book book = bookOptional.get();
         Author author = book.getAuthorId();
