@@ -16,3 +16,19 @@ spring:
     user: ${DATABASE_USERNAME:user}
     password: ${DATABASE_PASSWORD:password}
 
+logging:
+  level:
+    org.zalando.logbook: TRACE
+  pattern:
+    console: "\n%d{yyyy-MM-dd HH:mm:ss} [%thread] [%X{traceId:-}, %X{spanId:-}] %highlight(%-5level) %logger{36} \u001b[34m-\u001b[0m %msg%n"
+
+logbook:
+  format.style: json
+  obfuscate:
+    headers:
+      - Authorization
+    parameters:
+      - access_token
+  exclude:
+    - /swagger-ui/**
+    - /v3/api-docs/**
