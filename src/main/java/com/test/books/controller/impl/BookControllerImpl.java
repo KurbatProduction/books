@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 public class BookControllerImpl implements BookController {
@@ -25,5 +27,10 @@ public class BookControllerImpl implements BookController {
     @Override
     public ResponseEntity<BookDataDto.ListResponse> getBooks() {
         return ResponseEntity.ok(bookService.getBooks());
+    }
+
+    @Override
+    public ResponseEntity<BookDataDto.Response> getBook(UUID id) {
+        return ResponseEntity.ok(bookService.getBook(id));
     }
 }

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,14 @@ public class BookServiceImpl implements BookService {
         return BookDataDto.ListResponse.builder()
                 .books(bookMapper.toBookDataDtoResponseList(bookList))
                 .build();
+    }
+
+    @Override
+    public BookDataDto.Response getBook(UUID id) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isEmpty()) {
+            throw new NoSuchElementException("Book wasn't found");
+        }
+        return bookMapper.toBookDataDtoResponse(bookOptional.get());
     }
 }
