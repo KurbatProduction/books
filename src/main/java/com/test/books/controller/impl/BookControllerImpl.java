@@ -45,4 +45,10 @@ public class BookControllerImpl implements BookController {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<Void> postBookUsingKafka(BookDataDto.Request body) {
+        bookService.createBookUsingKafka(body);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

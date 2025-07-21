@@ -15,6 +15,28 @@ spring:
     liquibase-schema: public
     user: ${DATABASE_USERNAME:user}
     password: ${DATABASE_PASSWORD:password}
+  kafka:
+    properties:
+      security:
+        protocol: "PLAINTEXT"
+    bootstrap-servers: ${KAFKA_CONNECT:http\://localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: gzip
+    consumer:
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      auto-offset-reset: latest
+      group-id: book-service
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: com.test.books.*
+        max.poll.records: 100
+
+topic:
+  books-create: ${TOPIC_BOOKS_CREATE:books.create}
 
 logging:
   level:

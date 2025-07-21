@@ -15,4 +15,6 @@ public interface BookService {
     void updateBook(UUID id, BookDataDto.Request dto);
 
     void deleteBook(UUID id);
+
+    void createBookUsingKafka(BookDataDto.Request dto);
 }

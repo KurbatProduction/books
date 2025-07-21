@@ -10,6 +10,7 @@ import com.test.books.repository.BookRepository;
 import com.test.books.service.AuthorService;
 import com.test.books.service.BookService;
 
+import com.test.books.service.producer.BookProducer;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorService authorService;
     private final BookMapper bookMapper;
+    private final BookProducer bookProducer;
 
     @Override
     @Transactional
@@ -71,5 +73,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(UUID id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public void createBookUsingKafka(BookDataDto.Request dto) {
+        bookProducer.sendBookData(dto);
     }
 }

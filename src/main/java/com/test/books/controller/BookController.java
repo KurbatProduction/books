@@ -39,4 +39,9 @@ public interface BookController {
     @Operation(summary = "Delete an existing books by id")
     ResponseEntity<Void> deleteBook(@RequestParam("id") UUID id);
 
+    @PostMapping("/kafka")
+    @Operation(summary = "Create a book using Kafka")
+    @ApiResponse(responseCode = "201", description = "Message has been sent to kafka")
+    ResponseEntity<Void> postBookUsingKafka(@Valid @RequestBody BookDataDto.Request body);
+
 }
