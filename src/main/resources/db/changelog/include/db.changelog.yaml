@@ -1,1 +1,15 @@
 databaseChangeLog:
+  - changeSet:
+      id: 1-create-authors.sql
+      author: sergey.kurbatov
+      sqlFile:
+        path: ../1-create-authors.sql
+        splitStatements: false
+        relativeToChangelogFile: true
+  - changeSet:
+      id: 2-create-books.sql
+      author: sergey.kurbatov
+      sqlFile:
+        path: ../2-create-books.sql
+        splitStatements: false
+        relativeToChangelogFile: true
