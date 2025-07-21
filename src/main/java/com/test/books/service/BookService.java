@@ -13,4 +13,6 @@ public interface BookService {
     BookDataDto.Response getBook(UUID id);
 
     void updateBook(UUID id, BookDataDto.Request dto);
+
+    void deleteBook(UUID id);
 }

@@ -31,7 +31,12 @@ public interface BookController {
     ResponseEntity<BookDataDto.Response> getBook(@RequestParam("id") UUID id);
 
     @PutMapping("/{id}")
-    @Operation(summary = "Get an existing books by id")
+    @Operation(summary = "Update an existing books by id")
     ResponseEntity<Void> putBook(
             @RequestParam("id") UUID id, @Valid @RequestBody BookDataDto.Request body);
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete an existing books by id")
+    ResponseEntity<Void> deleteBook(@RequestParam("id") UUID id);
+
 }

@@ -39,4 +39,10 @@ public class BookControllerImpl implements BookController {
         bookService.updateBook(id, body);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<Void> deleteBook(UUID id) {
+        bookService.deleteBook(id);
+        return ResponseEntity.ok().build();
+    }
 }

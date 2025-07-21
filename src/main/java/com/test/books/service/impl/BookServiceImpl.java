@@ -52,6 +52,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void updateBook(UUID id, BookDataDto.Request dto) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isEmpty()) {
@@ -64,5 +65,10 @@ public class BookServiceImpl implements BookService {
         }
         bookMapper.updateBook(book, dto, author);
         bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteBook(UUID id) {
+        bookRepository.deleteById(id);
     }
 }
