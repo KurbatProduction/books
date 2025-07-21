@@ -5,6 +5,7 @@ import com.test.books.entity.Author;
 import com.test.books.entity.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -19,7 +20,12 @@ public interface BookMapper {
 
     List<BookDataDto.Response> toBookDataDtoResponseList(List<Book> bookList);
 
-
     @Mapping(target = "author", source = "authorId")
     BookDataDto.Response toBookDataDtoResponse(Book book);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createDate", ignore = true)
+    @Mapping(target = "updateDate", ignore = true)
+    @Mapping(target = "authorId", source = "author")
+    void updateBook(@MappingTarget Book book, BookDataDto.Request dto, Author author);
 }

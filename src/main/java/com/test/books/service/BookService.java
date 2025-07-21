@@ -11,4 +11,6 @@ public interface BookService {
     BookDataDto.ListResponse getBooks();
 
     BookDataDto.Response getBook(UUID id);
+
+    void updateBook(UUID id, BookDataDto.Request dto);
 }

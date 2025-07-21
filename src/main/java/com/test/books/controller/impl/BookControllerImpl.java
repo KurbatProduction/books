@@ -33,4 +33,10 @@ public class BookControllerImpl implements BookController {
     public ResponseEntity<BookDataDto.Response> getBook(UUID id) {
         return ResponseEntity.ok(bookService.getBook(id));
     }
+
+    @Override
+    public ResponseEntity<Void> putBook(UUID id, BookDataDto.Request body) {
+        bookService.updateBook(id, body);
+        return ResponseEntity.ok().build();
+    }
 }

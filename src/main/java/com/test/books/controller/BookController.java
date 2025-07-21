@@ -29,4 +29,9 @@ public interface BookController {
     @GetMapping("/{id}")
     @Operation(summary = "Get an existing books by id")
     ResponseEntity<BookDataDto.Response> getBook(@RequestParam("id") UUID id);
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Get an existing books by id")
+    ResponseEntity<Void> putBook(
+            @RequestParam("id") UUID id, @Valid @RequestBody BookDataDto.Request body);
 }

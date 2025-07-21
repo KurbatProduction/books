@@ -50,4 +50,19 @@ public class BookServiceImpl implements BookService {
         }
         return bookMapper.toBookDataDtoResponse(bookOptional.get());
     }
+
+    @Override
+    public void updateBook(UUID id, BookDataDto.Request dto) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isEmpty()) {
+            throw new NoSuchElementException("Book wasn't found");
+        }
+        Book book = bookOptional.get();
+        Author author = book.getAuthorId();
+        if (!dto.author().name().equals(author.getName())) {
+            author = authorService.getOrCreateAuthor(dto.author());
+        }
+        bookMapper.updateBook(book, dto, author);
+        bookRepository.save(book);
+    }
 }
