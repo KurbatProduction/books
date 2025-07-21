@@ -26,16 +26,14 @@ public record BookDataDto() {
                     }
                     """)
     public record Request(
-            @Pattern(regexp = "^\\S+$", message = "Book's title must not contain whitespace")
-                    @Size(min = 1, max = 50)
-                    @NotBlank
-                    String title,
+            @Size(min = 1, max = 50) @NotBlank String title,
             String description,
             @NotNull @Positive @Max(value = Integer.MAX_VALUE) Integer price,
-            @NotNull @Valid AuthorDataDto author) {}
+            @NotNull @Valid AuthorDataDto.Request author) {}
 
     @Builder(toBuilder = true)
-    @Schema(name = "BookDataResponse",
+    @Schema(
+            name = "BookDataResponse",
             example =
                     """
                     {
@@ -44,6 +42,7 @@ public record BookDataDto() {
                       "description": "new description",
                       "price": 10,
                       "author": {
+                        "id": "8b0b1f7d-c646-4704-b31c-c7e5a09e2c83",
                         "name": "Alan Wake"
                       }
                     }
@@ -52,12 +51,13 @@ public record BookDataDto() {
             UUID id,
             String title,
             Integer price,
-            AuthorDataDto author,
+            AuthorDataDto.Response author,
             ZonedDateTime createDate,
             ZonedDateTime updateDate) {}
 
     @Builder(toBuilder = true)
-    @Schema(name = "BookDataListResponse",
+    @Schema(
+            name = "BookDataListResponse",
             example =
                     """
                     {
@@ -67,11 +67,11 @@ public record BookDataDto() {
                         "description": "new description",
                         "price": 10,
                         "author": {
+                          "id": "8b0b1f7d-c646-4704-b31c-c7e5a09e2c83",
                           "name": "Alan Wake"
                         }
                       ]
                     }
                     """)
-    public record ListResponse(
-            List<Response> books) {}
+    public record ListResponse(List<Response> books) {}
 }
