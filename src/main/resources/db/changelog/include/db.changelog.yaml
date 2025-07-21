@@ -13,3 +13,10 @@ databaseChangeLog:
         path: ../2-create-books.sql
         splitStatements: false
         relativeToChangelogFile: true
+  - changeSet:
+      id: 3-alter-books-name.sql
+      author: sergey.kurbatov
+      sqlFile:
+        path: ../3-alter-books-name.sql
+        splitStatements: false
+        relativeToChangelogFile: true

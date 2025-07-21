@@ -18,8 +18,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "title", length = 50, nullable = false)
+    private String title;
 
     @Column(name = "description")
     private String description;
